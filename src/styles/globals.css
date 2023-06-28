@@ -39,7 +39,7 @@
     @apply hover:text-gray-900 dark:hover:text-gray-200;
   }
   .menuButton.active {
-    @apply text-gray-900 dark:text-gray-200;
+    @apply text-blue-600 dark:text-blue-600;
   }
 }
 

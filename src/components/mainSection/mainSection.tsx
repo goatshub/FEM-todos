@@ -6,7 +6,7 @@ import { useState } from "react";
 import MenuFilter from "../menuFilter";
 const MainSection = () => {
   const [todosInfos, setTodosInfos] = useState<Todo[]>([
-    { id: 1, completed: true, content: "asa sasas", index: 0 },
+    // { id: 1, completed: true, content: "asa sasas", index: 0 },
   ]);
   const [filter, setFilter] = useState<FilterType>();
   let todosInfosFiltered =
