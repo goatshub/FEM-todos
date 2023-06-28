@@ -5,9 +5,7 @@ import TodoItem from "../todoItem";
 import { useState } from "react";
 import MenuFilter from "../menuFilter";
 const MainSection = () => {
-  const [todosInfos, setTodosInfos] = useState<Todo[]>([
-    // { id: 1, completed: true, content: "asa sasas", index: 0 },
-  ]);
+  const [todosInfos, setTodosInfos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterType>();
   let todosInfosFiltered =
     filter !== undefined
