@@ -19,7 +19,6 @@ const SignInButton = () => {
           // Accounts successfully linked.
           // const user = result.user;
           console.log("Accounts successfully linked ");
-          // ...
         })
         .catch((error) => {
           // Handle Errors here.
