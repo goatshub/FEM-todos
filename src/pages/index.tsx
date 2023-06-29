@@ -2,16 +2,30 @@ import { Josefin_Sans } from "next/font/google";
 import MainSection from "@/components/mainSection";
 import { useEffect, useState } from "react";
 import Header from "@/components/header";
+import { auth } from "@/config/firebase";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export default function Home() {
   const [darkmode, setDarkmode] = useState(false);
 
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      console.log("no user, sign in anon mode.");
+      signInAnonymously(auth)
+        .then(() => console.log("Anonymous signed in"))
+        .catch((error) => alert(error.message));
+    }
+  });
+
   useEffect(() => {
     const theme = localStorage.getItem("theme");
     if (theme === "dark") setDarkmode(true);
   }, []);
+
   return (
     <main
       className={`${darkmode && "dark"} 
@@ -29,6 +43,7 @@ export default function Home() {
         headerDarkBackground
       `}
       ></div>
+
       <section className="absolute w-full sm:max-w-[38rem] sm:mx-auto px-8 pt-14 pb-5 sm:pt-20 grid grid-cols-1 gap-5">
         <Header darkmode={darkmode} setDarkmode={setDarkmode} />
         <MainSection />

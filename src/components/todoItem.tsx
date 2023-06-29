@@ -1,23 +1,59 @@
-import { TodoItem } from "@/type/Type";
+import { HandleComplete, RemoveTodo, TodoItem } from "@/type/Type";
 import Image from "next/image";
 import { Draggable } from "react-beautiful-dnd";
+import {
+  updateDoc,
+  doc,
+  deleteDoc,
+  query,
+  collection,
+  getDocs,
+  arrayRemove,
+  where,
+} from "firebase/firestore/lite";
+import { auth, db } from "@/config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const TodoItem = ({ todoItem, setTodosInfos, index }: TodoItem) => {
+const TodoItem = ({
+  todoItem,
+  setIndexId,
+  setTodoObjectById,
+  index,
+}: TodoItem) => {
   const { id, completed, content } = todoItem;
-  const handleComplete = (id: number) => {
-    setTodosInfos((prev) => {
-      let updatedTodos = prev.map((item) => {
-        if (item.id === id) {
-          return { ...item, completed: !item.completed };
-        } else {
-          return item;
-        }
-      });
-      return updatedTodos;
+  const [user] = useAuthState(auth);
+
+  const handleComplete: HandleComplete = async (id) => {
+    /** Update Todo to DB */
+    await updateDoc(doc(db, "todo", id), {
+      completed: !completed,
+    });
+
+    setTodoObjectById((prev) => {
+      return {
+        ...prev,
+        [id]: { ...prev[id], completed: !completed },
+      };
     });
   };
-  const removeTodo = (id: number) => {
-    setTodosInfos((prev) => prev.filter((item) => item.id !== id));
+
+  const removeTodo: RemoveTodo = async (id) => {
+    /** Update Todo to DB */
+    await deleteDoc(doc(db, "todo", id));
+
+    /** Update indexArr to DB */
+    const q = query(collection(db, "indexId"), where("uId", "==", user?.uid));
+    const indexIdDocsRef = await getDocs(q);
+    const indexIdDoc = doc(db, "indexId", indexIdDocsRef.docs[0].id);
+    await updateDoc(indexIdDoc, { indexArr: arrayRemove(id) });
+
+    /** set states */
+    setTodoObjectById((prev) => {
+      let updatedTodoObjectById = { ...prev };
+      delete updatedTodoObjectById[id];
+      return updatedTodoObjectById;
+    });
+    setIndexId((prev) => prev.filter((indexId) => indexId !== id));
   };
   return (
     <Draggable draggableId={id.toString()} index={index}>

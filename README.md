@@ -54,6 +54,8 @@ Users should be able to:
 - TypeScript
 - [TailwindCSS](https://tailwindcss.com/) — for styling
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd/tree/master) - for drag and drop
+- [Firebase](https://firebase.google.com/) - For backend
+- [React Firebase Hooks](https://github.com/CSFrequency/react-firebase-hooks)
 
 ### What I learned
 
