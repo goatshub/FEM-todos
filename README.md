@@ -36,7 +36,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Todo App with TypeScript, NextJS, Tailwind CSS (frontend only)](https://www.frontendmentor.io/solutions/todo-app-with-typescript-nextjs-tailwind-css-frontend-only-ImlTN1Aapp)
 - Live Site URL: [Todo App (no backend)](https://fem-todos-goat.vercel.app/)
 
 ## My process
