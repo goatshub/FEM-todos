@@ -13,8 +13,6 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
   - [What I learned](#what-i-learned)
   - [Useful resources](#useful-resources)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -34,11 +32,12 @@ Users should be able to:
 ### Screenshot
 
 ![](./screenshot.jpg)
+![](./screenshot2.jpg)
 
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Todo App (no backend)](https://fem-todos-goat.vercel.app/)
 
 ## My process
 
@@ -56,6 +55,8 @@ Users should be able to:
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd/tree/master) - for drag and drop
 
 ### What I learned
+
+This is a frontend-only version.
 
 Using react-beautiful-dnd with TypeScripts needs to install its types.
 
