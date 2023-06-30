@@ -1,19 +1,24 @@
 import { auth, ggProvider } from "@/config/firebase";
-import { linkWithPopup, signInWithPopup, signOut } from "firebase/auth";
-import { useCallback } from "react";
+import {
+  OAuthProvider,
+  linkWithPopup,
+  signInWithCredential,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const SignInButton = () => {
   const [user, loading] = useAuthState(auth);
 
-  const loginWithGG = useCallback(() => {
+  const loginWithGG = () => {
     signInWithPopup(auth, ggProvider)
       .then(() => console.log("signInWithPopup Success"))
       .catch((err) => console.log(err.message));
-  }, []);
+  };
 
-  const linkAccWithGG = useCallback(() => {
-    if (auth.currentUser) {
+  const linkAccWithGG = () => {
+    if (auth.currentUser && auth.currentUser.isAnonymous) {
       linkWithPopup(auth.currentUser, ggProvider)
         .then(() => {
           // Accounts successfully linked.
@@ -27,15 +32,26 @@ const SignInButton = () => {
             error.message ===
             "Firebase: Error (auth/credential-already-in-use)."
           ) {
-            alert("Already signed up with this account. Please sign in.");
+            const credential = OAuthProvider.credentialFromError(error);
+            if (credential) {
+              signInWithCredential(auth, credential)
+                .then(() => console.log("signInWithCredential successfully"))
+                .catch((err) =>
+                  console.log("signInWithCredential unsuccessful ", err.message)
+                );
+            } else {
+              alert(error.message);
+            }
           } else if (
             error.message !== "Firebase: Error (auth/cancelled-popup-request)."
           ) {
             alert(error.message);
           }
         });
+    } else {
+      loginWithGG();
     }
-  }, []);
+  };
 
   if (!user || loading)
     return (
@@ -48,32 +64,17 @@ const SignInButton = () => {
     <div className="text-sm flex justify-between mb-2  text-gray-200">
       <p>Hello, {user.displayName || user.email || "Anonymous"}</p>
       <div className="flex gap-5">
-        {!user.emailVerified ? (
-          <>
-            <button
-              type="button"
-              className="menuButton"
-              onClick={linkAccWithGG}
-            >
-              Sign up
-            </button>
-            <button type="button" className="menuButton" onClick={loginWithGG}>
-              Sign in
-            </button>
-          </>
-        ) : (
-          <>
-            <button type="button" className="menuButton" onClick={loginWithGG}>
-              Switch account
-            </button>
-            <button
-              type="button"
-              className="menuButton"
-              onClick={() => signOut(auth)}
-            >
-              Sign out
-            </button>
-          </>
+        <button type="button" className="menuButton" onClick={linkAccWithGG}>
+          {user.isAnonymous ? "Sign in" : "Not you?"}
+        </button>
+        {user.isAnonymous === false && (
+          <button
+            type="button"
+            className="menuButton"
+            onClick={() => signOut(auth)}
+          >
+            Sign out
+          </button>
         )}
       </div>
     </div>

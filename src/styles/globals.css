@@ -50,7 +50,7 @@
   }
   @screen sm {
     .max-h-todos {
-      max-height: calc(100vh - 350px);
+      max-height: calc(100vh - 370px);
     }
   }
 }

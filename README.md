@@ -34,6 +34,7 @@ Users should be able to:
 ### Screenshot
 
 ![](./screenshot.jpg)
+![](./screenshot2.jpg)
 
 ### Links
 
@@ -74,6 +75,12 @@ const MainSection = dynamic(() => import("./mainSection"), {
 });
 export default MainSection;
 ```
+
+I made this project into a full stack app with Firebase as database.
+
+It is better to keep index of the todo in separated array. Not in todo object itself so that we don't need to write many updates back to database.
+
+I have also tried applying Firebase anon auth and account linking with Google provider to save user's data.
 
 ### Useful resources
 

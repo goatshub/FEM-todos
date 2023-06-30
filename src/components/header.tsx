@@ -10,7 +10,7 @@ const Header = ({ darkmode, setDarkmode }: HeaderType) => {
     });
   };
   return (
-    <div className="flex justify-between items-center pb-4 sm:pb-2">
+    <div className="flex justify-between items-center sm:pb-1">
       <h1
         className="text-white text-2xl font-bold tracking-[0.3em]
           sm:text-4xl sm:tracking-[0.5em] 

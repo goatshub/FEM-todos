@@ -10,6 +10,11 @@ const josefin = Josefin_Sans({ subsets: ["latin"] });
 export default function Home() {
   const [darkmode, setDarkmode] = useState(false);
 
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") setDarkmode(true);
+  }, []);
+
   onAuthStateChanged(auth, (user) => {
     if (!user) {
       // see docs for a list of available properties
@@ -20,11 +25,6 @@ export default function Home() {
         .catch((error) => alert(error.message));
     }
   });
-
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-    if (theme === "dark") setDarkmode(true);
-  }, []);
 
   return (
     <main
@@ -44,7 +44,7 @@ export default function Home() {
       `}
       ></div>
 
-      <section className="absolute w-full sm:max-w-[38rem] sm:mx-auto px-8 pt-14 pb-5 sm:pt-20 grid grid-cols-1 gap-5">
+      <section className="absolute w-full sm:max-w-[38rem] sm:mx-auto px-8 pt-[2.5rem] pb-5 sm:pt-[5rem] grid grid-cols-1 gap-5">
         <Header darkmode={darkmode} setDarkmode={setDarkmode} />
         <MainSection />
         <p className="text-center mt-[4.5rem] sm:mt-2 text-sm text-gray-500 opacity-90">
