@@ -38,8 +38,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Todo App with TypeScript, NextJS, Tailwind CSS and Firebase + authen](https://www.frontendmentor.io/solutions/todo-app-with-typescript-nextjs-tailwind-css-and-firebase-authen-Lr2zyeQ4jl)
+- Live Site URL: [Todo App (Full stack)](https://fem-todos-firebase-goat.vercel.app/)
 
 ## My process
 
